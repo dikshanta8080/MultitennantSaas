@@ -1,13 +1,18 @@
 package com.acharya.dikshanta.multitennant.MultiTennant.common.dto.request;
 
-import lombok.Builder;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public record ApiResponse<T>(
-        String message,
-        int statusCode,
-        T data
-) {
+public class ApiResponse<T> {
+
+    private String message;
+    private int statusCode;
+    private T data;
+
     public static <T> ApiResponse<T> error(String message) {
         return ApiResponse.<T>builder()
                 .message(message)
