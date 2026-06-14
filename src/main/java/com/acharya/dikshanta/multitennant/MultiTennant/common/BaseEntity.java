@@ -3,6 +3,7 @@ package com.acharya.dikshanta.multitennant.MultiTennant.common;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +16,15 @@ import org.hibernate.annotations.UuidGenerator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
+@MappedSuperclass
 @SuperBuilder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@MappedSuperclass
 public abstract class BaseEntity {
+
     @Id
     @UuidGenerator
     @Column(nullable = false, unique = true, updatable = false)
@@ -34,8 +37,17 @@ public abstract class BaseEntity {
     @Column(nullable = false, name = "tenant_id")
     private UUID tenantId;
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;
+
     @UpdateTimestamp
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @PrePersist
+    protected void onCreate() {
+        if (tenantId == null) {
+            this.tenantId = UUID.randomUUID();
+        }
+    }
 }

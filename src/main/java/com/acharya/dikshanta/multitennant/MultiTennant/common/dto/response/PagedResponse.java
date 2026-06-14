@@ -20,7 +20,7 @@ public record PagedResponse<T>(
 
 
 ) {
-    public PagedResponse<T> toPagedResponse(Page<T> page) {
+    public static <T> PagedResponse<T> toPagedResponse(Page<T> page) {
         return PagedResponse.<T>builder()
                 .content(page.getContent())
                 .page(page.getTotalPages())
