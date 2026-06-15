@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @NoArgsConstructor
@@ -17,7 +16,6 @@ import org.hibernate.annotations.SQLRestriction;
 @SuperBuilder
 @Getter
 @Setter
-@SQLRestriction("deleted=false")
 @Table(name = "categories")
 public class Category extends BaseEntity {
     @Column(nullable = false)

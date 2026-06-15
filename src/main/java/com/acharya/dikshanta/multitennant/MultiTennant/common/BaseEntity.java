@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLRestriction("deleted=false")
 public abstract class BaseEntity {
 
     @Id
@@ -35,7 +37,7 @@ public abstract class BaseEntity {
     private LocalDateTime createdAt;
 
     @Column(nullable = false, name = "tenant_id")
-    private UUID tenantId;
+    private String tenantId;
 
     @Column(name = "deleted", nullable = false)
     private boolean deleted = false;
@@ -47,7 +49,7 @@ public abstract class BaseEntity {
     @PrePersist
     protected void onCreate() {
         if (tenantId == null) {
-            this.tenantId = UUID.randomUUID();
+            this.tenantId = "ramesh_enterprises";
         }
     }
 }

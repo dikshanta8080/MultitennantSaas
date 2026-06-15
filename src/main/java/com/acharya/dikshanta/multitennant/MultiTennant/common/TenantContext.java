@@ -1,15 +1,13 @@
 package com.acharya.dikshanta.multitennant.MultiTennant.common;
 
-import java.util.UUID;
-
 public final class TenantContext {
-    private static final ThreadLocal<UUID> TENANT_ID = new ThreadLocal<>();
+    private static final ThreadLocal<String> TENANT_ID = new ThreadLocal<>();
 
-    public static UUID getTenantId() {
+    public static String getTenantId() {
         return TENANT_ID.get();
     }
 
-    public static void setTenantId(UUID id) {
+    public static void setTenantId(String id) {
         TENANT_ID.set(id);
     }
 

@@ -82,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (request.name() != null && !request.name().equalsIgnoreCase(category.getName())) {
             category.setName(request.name());
         }
-        if (request.description() != null && request.description().equalsIgnoreCase(category.getDescription())) {
+        if (request.description() != null && !request.description().equalsIgnoreCase(category.getDescription())) {
             category.setDescription(request.description());
         }
     }
